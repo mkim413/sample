@@ -1,0 +1,282 @@
+\documentclass{article}
+
+\begin{document}
+\begin{center} Personality Survey (Big Five Inventory) \end{center}
+Although people are in the same situation, they show different patterns of behavior. There is a way to explain these individual differences, personality. Big Five is the most well-validated and commonly used personality inventory by scientists, and you already completed this through the online survey. There are 5 dimensions of personality that are correlated with different behaviors and tendencies by Big Five:
+\begin{flushleft}
+1. Extraversion: Extraversion indicates how outgoing and social a person is. A person who gets a high score in extraversion tends to be assertive, talkative, sociable and outgoing. A person who gets a low score in extraversion tends to be reserved, solitary and independent of their social world. 
+\end{flushleft}
+\begin{flushleft}
+2. Agreeableness: Agreeableness indicates a general concern for social harmony. A person who gets a high score in agreeableness tends to warm, sympathetic, and considerate. A person who gets a low score in agreeableness tends to competitive or challenging.
+\end{flushleft}
+\begin{flushleft}
+3. Conscientiousness: Conscientiousness indicates self-discipline and regulation of their impulses. A person who a gets high score in conscientiousness tends to efficient, organized and not impulsive. A person who gets a low score in consciousness tends to careless, flexible, and spontaneous.
+\end{flushleft}
+\begin{flushleft}
+4. Neuroticism: neuroticism refers to emotional stability. A person who gets a high score in neuroticism tends to be irritable, vulnerable to stress, and experiences more negative emotions such as anger, anxiety or depression. A person who gets a low score in neuroticism tends to be calm and emotionally stable.
+\end{flushleft}
+\begin{flushleft}
+5. Openness: openness indicates how open-minded a person is. A person who gets a high score in openness tends to curious, imaginative and artistic. A person who gets a low score in openness tends to cautious and not try new things.  
+\end{flushleft}
+<<echo=FALSE>>=
+#import individual indifference data
+df = read.csv("~/Desktop/data.csv",stringsAsFactors = F)
+#import emotion regulation data
+er = read.csv("~/Desktop/er_data.csv",stringsAsFactors = F)
+#import EMA task data
+ema_df = read.csv("~/Desktop/EMA_data.csv",stringsAsFactors = F)
+
+#PID
+pid1 = 2
+
+#EMA_PID
+ema_pid = paste0("P", pid) 
+
+
+#library
+library(fmsb)
+library(stringr)
+library(reshape2)
+library(plyr)
+library(scales)
+library(gtools)
+
+#cut one participant
+df1= subset(df, pid ==pid1)
+
+#####1. Extraversion
+
+#reverse code
+df1$indiff_bfi6_r = 6 - (df1$indiff_bfi6)
+df1$indiff_bfi21_r = 6 - (df1$indiff_bfi21)
+df1$indiff_bfi31_r = 6 - (df1$indiff_bfi31)
+
+#subsetting
+df1$Extraversion = subset(df1, select = c(indiff_bfi1, indiff_bfi6_r, indiff_bfi11, indiff_bfi16, indiff_bfi21_r, indiff_bfi26,indiff_bfi31_r , indiff_bfi36))
+
+#Mean
+df1$Extraversion = rowMeans(df1$Extraversion)
+
+#####2.Agreeableness
+
+#reverse code: 2, 12, 27, 37
+df1$indiff_bfi2_r = 6 - (df1$indiff_bfi2)
+df1$indiff_bfi12_r = 6 - (df1$indiff_bfi12)
+df1$indiff_bfi27_r = 6 - (df1$indiff_bfi27)
+df1$indiff_bfi37_r = 6 - (df1$indiff_bfi37)
+
+#subsetting
+df1$Agreeableness = subset(df1, select = c(indiff_bfi2_r, indiff_bfi7, indiff_bfi12_r, indiff_bfi17, indiff_bfi22, indiff_bfi27_r, indiff_bfi32, indiff_bfi37_r, indiff_bfi42))
+
+#Mean
+df1$Agreeableness = rowMeans(df1$Agreeableness)
+
+#####3.Conscientious
+
+#reverse code: 8, 18, 23, 43
+df1$indiff_bfi8_r = 6 - (df1$indiff_bfi8)
+df1$indiff_bfi18_r = 6 - (df1$indiff_bfi18)
+df1$indiff_bfi23_r = 6 - (df1$indiff_bfi23)
+df1$indiff_bfi43_r = 6 - (df1$indiff_bfi43)
+
+#subsetting
+df1$Conscientious = subset(df1, select = c(indiff_bfi3, indiff_bfi8_r, indiff_bfi13, indiff_bfi18_r, indiff_bfi23_r, indiff_bfi28, indiff_bfi33, indiff_bfi38, indiff_bfi43_r))
+
+#Mean
+df1$Conscientious = rowMeans(df1$Conscientious)
+
+#####4.Neuroticism
+
+#reverse code: 9, 24, 34
+df1$indiff_bfi9_r = 6 - (df1$indiff_bfi9)
+df1$indiff_bfi24_r = 6 - (df1$indiff_bfi24)
+df1$indiff_bfi34_r = 6 - (df1$indiff_bfi34)
+
+#subsetting
+df1$Neuroticism = subset(df1, select = c(indiff_bfi4, indiff_bfi9_r, indiff_bfi14, indiff_bfi19, indiff_bfi24_r,indiff_bfi29, indiff_bfi34_r,  indiff_bfi39))
+
+#Mean
+df1$Neuroticism = rowMeans(df1$Neuroticism)
+
+#####5.Openness
+
+#reverse code: 35, 41
+df1$indiff_bfi35_r = 6 - (df1$indiff_bfi35)
+df1$indiff_bfi41_r = 6 - (df1$indiff_bfi41)
+
+#subsetting
+df1$Openness = subset(df1, select = c(indiff_bfi5, indiff_bfi10, indiff_bfi15, indiff_bfi20, indiff_bfi25, indiff_bfi30, indiff_bfi35_r, indiff_bfi40, indiff_bfi41_r, indiff_bfi44))
+#Means
+df1$Openness = rowMeans(df1$Openness)
+#Make new data frame for chart
+bigfive = subset(df1, select = c(Extraversion, Agreeableness, Conscientious, Neuroticism, Openness))
+bigfivedf = as.data.frame(bigfive)
+bigfivedf=rbind(rep(5,5) , rep(0,5) , bigfivedf)
+#Radar Chart
+radarchart(bigfivedf, axistype = 0, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=3 , cglcol="grey", cglty=1, cglwd=0.8,vlcex=0.8, title = "Result of Big Five")
+@
+\newpage
+\begin{center} Positive/Negative Schedule Task\end{center}
+
+\begin{flushleft}
+Affect is the experience of feeling and emotion. It is often described as a positive affect (e.g. goal attainment, threat avoidance or satisfaction with the present state of affairs) or negative affect (fail to avoid threats, not satisfied with the current state of affairs). Positive and Negative Affect Schedule is a reliable and valid instrument to measure positive (e.g., attentive, alert, and excited) and negative affect (i.e. hostile, guilty, nervous). Below graph shows your changes in positive and negative affect over time.
+\end{flushleft}
+
+<<echo=FALSE>>=
+######PANAS-SF##########
+
+#data cleaning
+df1$positive_t1 = df1$indiff_panas1+ df1$indiff_panas3+ df1$indiff_panas5+ df1$indiff_panas9+df1$indiff_panas10+ df1$indiff_panas12+ df1$indiff_panas14+ df1$indiff_panas16+ df1$indiff_panas17+ df1$indiff_panas19
+  
+df1$negative_t1 = df1$indiff_panas2+ df1$indiff_panas4+ df1$indiff_panas6+ df1$indiff_panas7+ df1$indiff_panas8+ df1$indiff_panas11+ df1$indiff_panas13+ df1$indiff_panas15+ df1$indiff_panas18+ df1$indiff_panas20
+
+df1$positive_t2 = df1$indiff_panas1_t2+ df1$indiff_panas3_t2+ df1$indiff_panas5_t2+df1$indiff_panas9_t2+ df1$indiff_panas10_t2+ df1$indiff_panas12_t2+ df1$indiff_panas14_t2+ df1$indiff_panas16_t2+ df1$indiff_panas17_t2+ df1$indiff_panas19_t2
+
+df1$negative_t2 = df1$indiff_panas2_t2+ df1$indiff_panas4_t2+ df1$indiff_panas6_t2+ df1$indiff_panas7_t2+ df1$indiff_panas8_t2+ df1$indiff_panas11_t2+ df1$indiff_panas13_t2+ df1$indiff_panas15_t2+ df1$indiff_panas18_t2+ df1$indiff_panas20_t2
+
+df1$positive_t3 = df1$indiff_panas1_t3+ df1$indiff_panas3_t3+ df1$indiff_panas5_t3+df1$indiff_panas9_t3+ df1$indiff_panas10_t3+ df1$indiff_panas12_t3+ df1$indiff_panas14_t3+ df1$indiff_panas16_t3+ df1$indiff_panas17_t3+ df1$indiff_panas19_t3
+
+df1$negative_t3 = df1$indiff_panas2_t3+ df1$indiff_panas4_t3+ df1$indiff_panas6_t3+ df1$indiff_panas7_t3+ df1$indiff_panas8_t3+ df1$indiff_panas11_t3+ df1$indiff_panas13_t3+ df1$indiff_panas15_t3+ df1$indiff_panas18_t3+ df1$indiff_panas20_t3
+#create data frame
+df4 = data.frame(Time = c("T1","T1", "T2","T2", "T3","T3"), Types_of_Affects = c("Positive", "Negative", "Positive", "Negative","Positive", "Negative"), score = c(df1$positive_t1, df1$negative_t1, df1$positive_t2, df1$negative_t2, df1$positive_t3, df1$negative_t3))
+#ggplot (line plot)
+ggplot2::ggplot(df4, ggplot2::aes(Time, score, group = Types_of_Affects)) +
+  ggplot2::geom_line(ggplot2::aes(colour = Types_of_Affects), position = "stack") +
+  ggplot2::geom_point(ggplot2::aes(colour = Types_of_Affects), position = "stack")+ggplot2::theme_bw()+ggplot2::labs(x= "Time", y="Score")
+@
+
+\newpage
+\begin{center} Emotion Regulation Task\end{center}
+\begin{flushleft}
+Emotion regulation task is to assess an individual's ability to regulate emotions. You completed this task in the lab session. There were 2 types of strategies you were asked; distract (think something irrelevant things with the picture), and rethink (re-appraisal the picture in a good way). Below the graph is described that how many percentages of strategies you used in the lab session. 
+\end{flushleft}
+<<echo=FALSE>>=
+
+#change row names from X.1 to variable name
+names(er) = as.matrix(er[1,])
+er = er[-1, ]
+er[] = lapply(er, function(x) type.convert(as.character(x)))
+#cut practice trials
+er1= subset(er, `Running[Trial]`  =='ExpBlock') 
+#clean data
+er1$reg1[er1$reg1 =="Break"] =NA
+er1$reg1 <- as.character(er1$reg1)
+
+er1$reg2[er1$reg2 =="Break"] =NA
+er1$reg2 <- as.character(er1$reg2)
+
+er1$choice <- as.character(er1$choice)
+
+er1$strategy_choice <- ifelse(er1$choice =="a", er1$reg1, 
+                                   ifelse(er1$choice =="l", er1$reg2, NA))
+#New data frame 
+er2= as.data.frame(table(er1$strategy_choice)) 
+er2$Var1 <- as.character(er2$Var1)
+er2$Var1[er2$Var1 == "distract"] <- "Distract"
+er2$Freq <- as.character(er2$Freq)
+er2$Var1[er2$Var1 == "rethink"] <- "Rethink"
+colnames(er2) <- c("Types_of_Strategies", "num")
+
+er2$num = as.numeric(er2$num)
+er2$per = round(er2$num / sum(er2$num)*100,1)
+er2$per = percent(er2$per/100)
+
+#Pie plot
+ggplot2::ggplot(er2, ggplot2::aes(x="", y=num, fill=Types_of_Strategies))+
+
+  ggplot2::geom_bar(width = 1, stat = "identity")+
+  ggplot2::coord_polar("y", start=0)+ggplot2::geom_text(ggplot2::aes(x=1, y = cumsum(num) - num/2, label=per))+
+  ggplot2::theme(axis.text.x=ggplot2::element_blank())+
+  ggplot2::theme_void()
+
+@
+
+\newpage
+\begin{center} Positive and Negative Affect over Time\end{center}
+\begin{flushleft}
+You completed EMA task via your phone five times per day (morning, midday1, midday2, midday3, and evening), every day.The color bars are presented positive (blue), and negative (red) affects, and the black bars mean intensities of your negative affect. 
+\end{flushleft}
+<<echo=FALSE>>=
+NUM_TEXTS_IN_DAY= 5
+
+#cut 1 participant
+ema_df1= subset(ema_df, pid ==ema_pid)
+
+# cut to only completed surveys
+ema_df2= subset(ema_df1, Finished == "True")
+
+# remove duplicates
+ema_df2<- ema_df2[!duplicated(ema_df2$sms_id),]
+
+# make a single pos affect column
+ema_df2$pos_affect <- paste0(ema_df2$pos_affect_even_1, ema_df2$pos_affect_odd_1)
+
+# data types
+ema_df2$pos_affect <- as.numeric(ema_df2$pos_affect)
+ema_df2$neg_affect_1 <- as.numeric(ema_df2$neg_affect_1)
+
+# creating time column
+split_sms_id <- str_split_fixed(ema_df2$sms_id, '_', 3)
+ema_df2$day_num <- as.numeric(split_sms_id[,2])
+ema_df2$sms_num <- as.numeric(split_sms_id[,3])
+ema_df2$previous_sms_id <- paste(substr(ema_df2$pid,2,5), str_pad(ema_df2$day_num-1, 2, pad="0"), str_pad(ema_df2$sms_num, 2, pad="0"), sep="_")
+ema_df2$subsequent_sms_id <- paste(substr(ema_df2$pid,2,5), str_pad(ema_df2$day_num+1, 2, pad="0"), str_pad(ema_df2$sms_num, 2, pad="0"), sep="_")
+ema_df2$t <- ((ema_df2$day_num) * NUM_TEXTS_IN_DAY) + (ema_df2$sms_num)
+
+
+# get followup emo rating
+neg_emo_delta <- merge(ema_df2[,c("neg_intensity_1", "sms_id", "neg_label_proximal")], # pulling from t1
+                    ema_df2[,c("neg_intensity_f_3", "previous_sms_id", "event")], 
+                    by.x = "sms_id", by.y = "previous_sms_id") 
+neg_emo_delta$delta <- as.numeric(neg_emo_delta$neg_intensity_1) - as.numeric(neg_emo_delta$neg_intensity_f_3)
+
+# affect over full course
+neg_pos <- ema_df2 %>%
+  dplyr::select(t, StartDate, neg_affect_1, pos_affect) %>%
+  melt(id.vars = c("t", "StartDate"))
+
+neg_pos$time =as.POSIXct(ema_df2$StartDate)
+
+# negative affect intensity
+ema_df2$neg = NA
+ema_df2$neg= as.numeric(ema_df2$neg)
+neg_df=as.data.frame(ema_df2$neg)
+  
+ema_df2$neg_intensity = as.numeric(ema_df2$neg_intensity_1)
+neg_df1=as.data.frame(ema_df2$neg_intensity) 
+  
+
+neg_df2 = smartbind(neg_df, neg_df1)
+  
+neg_pos$intensity = neg_df2$'ema_df2$neg_intensity'
+
+#rename
+neg_pos$Types_of_Affects=neg_pos$variable
+
+neg_pos$Types_of_Affects = revalue(neg_pos$Types_of_Affects, c("neg_affect_1"= "Negative", "pos_affect"= "Positive"))
+
+
+#ggplot (line plot + bar plot)
+ggplot2::ggplot(neg_pos, ggplot2::aes(x = as.POSIXct(StartDate)))+
+  ggplot2::geom_point(ggplot2::aes(y=value, color = Types_of_Affects), na.rm = TRUE)+
+  ggplot2::geom_line(ggplot2::aes(y=value, color = Types_of_Affects), na.rm = TRUE) +
+  ggplot2::geom_bar(ggplot2::aes(y= intensity), stat = "identity", position = "dodge", na.rm = TRUE)+
+  ggplot2::ggtitle("Positivity and negativity over time") +
+  ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, hjust = 1)) +
+  ggplot2::scale_x_datetime(labels = date_format("%m-%d "), breaks = pretty_breaks(n = nrow(df)/4))+
+  ggplot2::labs(x="Date", y="Value")
+
+@
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
