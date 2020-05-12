@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>experiment</title>
+    <script src="jspsych-6.1.0/jspsych.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="jspsych-6.1.0/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="jsPsych-6.1.0/plugins/jspsych-survey-likert.js"></script>
+    <link href="jspsych-6.1.0/css/jspsych.css" rel="stylesheet" type="text/css">
+    </link>  
+    <style>
+        img {
+          width: 400px;
+        }
+    </style>
+</head>
+
+<body></body>
+<script>
+var timeline = [];
+var welcome = {
+        type: 'html-keyboard-response',
+        stimulus: '<p><strong>Welcome to the experiment!</strong></p>' +
+        '<p>If you would like to continue, please press any button.<p>',
+    };
+    timeline.push(welcome);
+
+/*Morphing task script*/
+
+
+var morphing_instruction = {
+        type: 'html-keyboard-response',
+        stimulus: '<p>In this task, you will see two faces on the screen placed next to each other.</p>'+
+        '<p>Please indicate whether you think the two images in each pair are of the same person</p>'+
+        '<p>or two different people.</p>'+
+        '<p>If you think the two images are of <strong>the same person</strong>, press the number <strong>1.</strong></p>'+
+        '<p>If you think the two images are of <strong>two different people</strong>, press the number <strong>0.</strong></p>'+
+        '<p>If you would like to continue, please press any key.</p>',
+    }
+    timeline.push(morphing_instruction);
+    
+var fixation = {
+  type: 'html-keyboard-response',
+  stimulus: '<div style="font-size:30px;">+</div>',
+  choices: jsPsych.NO_KEYS,
+  trial_duration: 500,
+  }
+
+var stimuli = [/*1. male unfam-unfam*/
+  { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height =400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/50A_50B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)</p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/100A_0B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/80A_20B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/60A_40B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/40A_60B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/20A_80B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/unfam-unfam/0A_100B.jpg'></img></div>" +
+    "</div>"},
+    /*2. male subj-fam*/
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/50A_50B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/100A_0B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person?Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/80A_20B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/60A_40B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/40A_60B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/20A_80B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-fam/0A_100B.jpg'></img></div>" +
+    "</div>"},
+     /*3. male subj-unfam*/
+     { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/50A_50B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/100A_0B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different) </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/80A_20B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)d </p>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/60A_40B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/40A_60B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/20A_80B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/subj-unfam/0A_100B.jpg'></img></div>" +
+    "</div>"},
+    /*4. male unfam-fam*/
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/50A_50B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/100A_0B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/80A_20B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/60A_40B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/40A_60B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/20A_80B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-unfam/1/0A_100B.jpg'></img></div>" +
+    "</div>"},
+     /*5. male fam-fam*/
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/50A_50B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)>" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/100A_0B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/80A_20B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/60A_40B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/40A_60B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/20A_80B.jpg'></img></div>" +
+    "</div>"},
+    { face_pair: "<p>Are the two pictures from the same person? Press 1(same) or 0 (different)" +
+    "<div style='width: 900px;'>" +
+    "<div style='float: left;'><img height=400px; src='sample_pc/mrp_sample/male/0000/fam-fam/50A_50B.jpg'></img></div>" +
+    "<div class='float: right;'><img height=400px; src='sample_pc/mrp_sample/male0000/fam-fam/0A_100B.jpg'></img></div>" +
+    "</div>"},
+];
+
+var viewing = {
+  type: 'html-keyboard-response',
+  stimulus: jsPsych.timelineVariable('face_pair'),
+  choices: ['1', '0'],
+};
+
+
+var trial_procedure = {
+  timeline: [fixation, viewing],
+  timeline_variables: stimuli
+}
+
+
+timeline.push(trial_procedure);
+
+/*Similarity Rating Task Script*/
+
+var s_instruction = {
+      type: "html-keyboard-response",
+      stimulus: "Welcome to the experiment. Press any key to begin."
+    };
+    timeline.push(s_instruction);
+
+/*non-subject*/
+
+    var stimuli = [
+     {face_pair:"<div style='width: 400px;'>" +
+    "<div style='float: left;'><img src='sample_pc/smlr_sample/male/0000/non-subj/20%/1.jpg'></img></div>" +
+    "<div class='float: right;'><img src='sample_pc/smlr_sample/male/0000/non-subj/20%/2.jpg'></img></div>" +
+    "<div style='float: left;'><img src='sample_pc/smlr_sample/male/0000/non-subj/20%/3.jpg'></img></div>" +
+    "<div class='float: right;'><img src='sample_pc/smlr_sample/male/0000/non-subj/20%/2.jpg'></img></div>" +
+     "</div>"},
+     {face_pair:"<div style='width: 400px;'>" +
+    "<div style='float: left;'><img src='sample_pc/smlr_sample/male/0000/non-subj/40%/1.jpg'></img></div>" +
+    "<div class='float: right;'><img src='sample_pc/smlr_sample/male/0000/non-subj/40%/2.jpg'></img></div>" +
+    "<div style='float: left;'><img src='sample_pc/smlr_sample/male/0000/non-subj/40%/3.jpg'></img></div>" +
+    "<div class='float: right;'><img src='sample_pc/smlr_sample/male/0000/non-subj/40%/2.jpg'></img></div>" +
+     "</div>"},
+     {face_pair:"<div style='width: 400px;'>" +
+    "<div style='float: left;'><img src='sample_pc/smlr_sample/male/0000/non-subj/60%/1.jpg'></img></div>" +
+    "<div class='float: right;'><img src='sample_pc/smlr_sample/male/0000/non-subj/60%/2.jpg'></img></div>" +
+    "<div style='float: left;'><img src='sample_pc/smlr_sample/male/0000/non-subj/60%/3.jpg'></img></div>" +
+    "<div class='float: right;'><img src='sample_pc/smlr_sample/male/0000/non-subj/60%/2.jpg'></img></div>" +
+     "</div>"},
+     {face_pair:"<div style='width: 400px;'>" +
+    "<div style='float: left;'><img src='sample_pc/smlr_sample/male/0000/non-subj/80%/1.jpg'></img></div>" +
+    "<div class='float: right;'><img src='sample_pc/smlr_sample/male/0000/non-subj/80%/2.jpg'></img></div>" +
+    "<div style='float: left;'><img src='sample_pc/smlr_sample/male/0000/non-subj/80%/3.jpg'></img></div>" +
+    "<div class='float: right;'><img src='sample_pc/smlr_sample/male/0000/non-subj/80%/2.jpg'></img></div>" +
+     "</div>"},
+        ];
+/*subject*/
+
+
+var viewing = {
+  type: 'html-keyboard-response',
+  stimulus: jsPsych.timelineVariable('face_pair'),
+  choices: jsPsych.NO_KEYS,
+  trial_duration: 2000,
+};
+    
+      
+var s_scale = ["Strongly Differnt", "Different","Somewhat Different", "Somewhat Similar", "Similar", "Strongly Similar"];
+
+var s_likert_trial = {
+  type: 'survey-likert',
+  questions: [
+    {prompt: "To what extent did you observe a difference between the individual pictures? ", name: 'Likerts', labels: s_scale, required: true}, 
+  ],
+};
+var s_trial_procedure = {
+  timeline: [fixation,viewing,s_likert_trial],
+  timeline_variables: stimuli,
+  randomize_order: true
+}
+timeline.push(s_trial_procedure)
+
+
+/*Distortion Task Script*/
+var d_instruction = {
+        type: 'html-keyboard-response',
+        stimulus: '<p>Great! You have finished the first part of the task. </p>'+
+        '<p> In the next part of the task, you will see a series of pictures.</p>'+
+        '<p> Then, you will be asked to rate <strong>your current feeling.</strong></p> ' +
+        '<p> Press any button to continue. </p>',
+    };
+    timeline.push(d_instruction);
+    
+var animation_sequence = ['sample_pc/dst_sample/0000/negative_40%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_38%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_36%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_34%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_32%_distortion.jpg','sample_pc/dst_sample/0000/negative_30%_distortion.jpg','sample_pc/dst_sample/0000/negative_28%_distortion.jpg','sample_pc/dst_sample/0000/negative_26%_distortion.jpg'];
+var animation_trial = {
+        type: 'animation',
+        stimuli: animation_sequence,
+        sequence_reps: 1,
+        };
+
+var negative_scale = ["Neutral", "Slightly Negative","Moderately Negative", "Very Negative", "Extremely Negative"];
+var positive_scale = ["Neutral", "Slightly Postiive","Moderately Postiive", "Very Postiive", "Extremely Postiive"];
+
+var d_likert_trial = {
+  type: 'survey-likert',
+  questions: [
+    {prompt: "How you feel about the previous picture?", name: 'Likerts', labels: negative_scale, required: true}, 
+    {prompt: "How you feel about the previous picture?", name: 'Likerts', labels: positive_scale, required: true}, 
+  ],
+};
+
+var similarkity_scale = ["No Difference", "Slightly Different", "Moderately Different", "Very Different", "Extremely Different"];
+var likert_trial2 = {
+  type: 'survey-likert',
+  questions: [
+    {prompt: "To what extent did you observe a difference between the individual pictures?", name: 'Likerts2', labels: similarkity_scale, required: true},
+  ],
+};
+
+timeline.push (fixation, animation_trial, likert_trial,likert_trial2)
+
+var animation_sequence1 = ['sample_pc/dst_sample/0000/negative_40%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_36%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_32%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_28%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_24%_distortion.jpg','sample_pc/dst_sample/0000/negative_20%_distortion.jpg','sample_pc/dst_sample/0000/negative_16%_distortion.jpg','sample_pc/dst_sample/0000/negative_12%_distortion.jpg'];
+var animation_trial1 = {
+type: 'animation',
+stimuli: animation_sequence1,
+sequence_reps: 1
+};
+timeline.push (fixation, animation_trial1, d_likert_trial,likert_trial2)
+
+var animation_sequence2 = ['sample_pc/dst_sample/0000/negative_40%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_34%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_28%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_22%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_16%_distortion.jpg','sample_pc/dst_sample/0000/negative_10%_distortion.jpg','sample_pc/dst_sample/0000/negative_4%_distortion.jpg','sample_pc/dst_sample/0000/positive_2%_distortion.jpg'];
+var animation_trial2 = {
+type: 'animation',
+stimuli: animation_sequence2,
+sequence_reps: 1
+};
+timeline.push (fixation, animation_trial2, d_likert_trial,likert_trial2)
+
+var animation_sequence3 = ['sample_pc/dst_sample/0000/negative_40%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_32%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_24%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_16%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_8%_distortion.jpg','sample_pc/dst_sample/0000/positive_8%_distortion.jpg','sample_pc/dst_sample/0000/positive_16%_distortion.jpg','sample_pc/dst_sample/0000/positive_24%_distortion.jpg'];
+var animation_trial3 = {
+type: 'animation',
+stimuli: animation_sequence3,
+sequence_reps: 1
+};
+timeline.push (fixation, animation_trial3, d_likert_trial,likert_trial2)
+
+var animation_sequence4 = ['sample_pc/dst_sample/0000/negative_40%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_30%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_20%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_10%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_10%_distortion.jpg','sample_pc/dst_sample/0000/positive_20%_distortion.jpg','sample_pc/dst_sample/0000/positive_30%_distortion.jpg','sample_pc/dst_sample/0000/positive_40%_distortion.jpg'];
+var animation_trial4 = {
+type: 'animation',
+stimuli: animation_sequence4,
+sequence_reps: 1
+};
+
+timeline.push (fixation, animation_trial4, d_likert_trial,likert_trial2)
+
+var animation_sequence5 = ['sample_pc/dst_sample/0000/positive_40%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_36%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_32%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_28%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_24%_distortion.jpg','sample_pc/dst_sample/0000/positive_20%_distortion.jpg','sample_pc/dst_sample/0000/positive_16%_distortion.jpg','sample_pc/dst_sample/0000/positive_12%_distortion.jpg'];
+var animation_trial5 = {
+type: 'animation',
+stimuli: animation_sequence5,
+sequence_reps: 1
+};
+timeline.push (fixation, animation_trial5, d_likert_trial,likert_trial2)
+
+var animation_sequence6 = ['sample_pc/dst_sample/0000/positive_40%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_36%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_32%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_28%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_24%_distortion.jpg','sample_pc/dst_sample/0000/positive_20%_distortion.jpg','sample_pc/dst_sample/0000/positive_16%_distortion.jpg','sample_pc/dst_sample/0000/positive_12%_distortion.jpg'];
+var animation_trial6 = {
+type: 'animation',
+stimuli: animation_sequence1,
+sequence_reps: 1
+};
+timeline.push (fixation, animation_trial6, d_likert_trial,likert_trial2)
+
+var animation_sequence7 = ['sample_pc/dst_sample/0000/positive_40%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_34%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_28%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_22%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_16%_distortion.jpg','sample_pc/dst_sample/0000/positive_10%_distortion.jpg','sample_pc/dst_sample/0000/positive_4%_distortion.jpg','sample_pc/dst_sample/0000/negative_2%_distortion.jpg'];
+var animation_trial7 = {
+type: 'animation',
+stimuli: animation_sequence2,
+sequence_reps: 1
+};
+timeline.push (fixation, animation_trial7, d_likert_trial,likert_trial2)
+
+var animation_sequence8 = ['sample_pc/dst_sample/0000/positive_40%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_32%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_24%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_16%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_8%_distortion.jpg','sample_pc/dst_sample/0000/negative_8%_distortion.jpg','sample_pc/dst_sample/0000/negative_16%_distortion.jpg','sample_pc/dst_sample/0000/negative_24%_distortion.jpg'];
+var animation_trial8 = {
+type: 'animation',
+stimuli: animation_sequence8,
+sequence_reps: 1
+};
+timeline.push (fixation, animation_trial8, d_likert_trial,likert_trial2)
+
+var animation_sequence9 = ['sample_pc/dst_sample/0000/positive_40%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_30%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_20%_distortion.jpg', 'sample_pc/dst_sample/0000/positive_10%_distortion.jpg', 'sample_pc/dst_sample/0000/negative_10%_distortion.jpg','sample_pc/dst_sample/0000/negative_20%_distortion.jpg','sample_pc/dst_sample/0000/negative_30%_distortion.jpg','sample_pc/dst_sample/0000/negative_40%_distortion.jpg'];
+var animation_trial9 = {
+type: 'animation',
+stimuli: animation_sequence9,
+sequence_reps: 1
+};
+
+timeline.push (fixation, animation_trial9, d_likert_trial,likert_trial2)
+
+
+jsPsych.init({
+        timeline: timeline,
+        default_iti: 500,
+        on_finish: function () {
+            jsPsych.data.displayData();
+        }
+    });
+
+</script>
+
+</html>
